@@ -303,41 +303,18 @@ function showResult() {
 }
 
 /* =========================================================
- * 音楽（Web Audio APIで生成 — 音声ファイル不要）
+ * 音楽（BGM: assets/bgm.mp3 / 効果音: Web Audio APIで生成）
  * ========================================================= */
 let audioCtx = null;
 let musicOn = true;
-let bgmTimer = null;
-let bgmGain = null;
+const bgmAudio = $("bgm");
+bgmAudio.volume = 0.5;
 
-const NOTE = { C4:261.63, D4:293.66, E4:329.63, F4:349.23, G4:392.0, A4:440.0, B4:493.88,
-               C5:523.25, D5:587.33, E5:659.25, F5:698.46, G5:783.99, A5:880.0, C6:1046.5, R:0 };
-
-/* ゆったりオルゴール風「きらきら星」ループ（メロディ + ベース） */
-const MELODY = [
-  "C5","C5","G5","G5","A5","A5","G5","R",
-  "F5","F5","E5","E5","D5","D5","C5","R",
-  "G5","G5","F5","F5","E5","E5","D5","R",
-  "G5","G5","F5","F5","E5","E5","D5","R",
-  "C5","C5","G5","G5","A5","A5","G5","R",
-  "F5","F5","E5","E5","D5","D5","C5","R",
-];
-const BASS = [
-  "C4","R","E4","R","F4","R","C4","R",
-  "F4","R","C4","R","G4","R","C4","R",
-  "C4","R","D4","R","C4","R","G4","R",
-  "C4","R","D4","R","C4","R","G4","R",
-  "C4","R","E4","R","F4","R","C4","R",
-  "F4","R","G4","R","C4","R","C4","R",
-];
-const BEAT = 0.4; // 1音の長さ（秒）— ゆっくりめ
+const NOTE = { C4:261.63, E4:329.63, C5:523.25, E5:659.25, G5:783.99, C6:1046.5 };
 
 function ensureAudio() {
   if (!audioCtx) {
     audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    bgmGain = audioCtx.createGain();
-    bgmGain.gain.value = 0.1;
-    bgmGain.connect(audioCtx.destination);
   }
   if (audioCtx.state === "suspended") audioCtx.resume();
 }
@@ -356,23 +333,15 @@ function playNote(freq, time, dur, type, gainNode, volume) {
   osc.stop(time + dur);
 }
 
-function scheduleBgmLoop() {
-  if (!musicOn || !audioCtx) return;
-  const start = audioCtx.currentTime + 0.05;
-  // オルゴール風：やわらかい正弦波 + 長めの余韻
-  MELODY.forEach((n, i) => playNote(NOTE[n], start + i * BEAT, BEAT * 1.3, "sine", bgmGain, 1));
-  BASS.forEach((n, i) => playNote(NOTE[n], start + i * BEAT, BEAT * 2.0, "sine", bgmGain, 0.3));
-  bgmTimer = setTimeout(scheduleBgmLoop, MELODY.length * BEAT * 1000);
-}
-
 function startMusic() {
   ensureAudio();
-  if (bgmTimer) clearTimeout(bgmTimer);
-  if (musicOn) scheduleBgmLoop();
+  if (musicOn) {
+    bgmAudio.play().catch(() => {}); // 自動再生がブロックされても止まらないように
+  }
 }
 
 function stopMusic() {
-  if (bgmTimer) { clearTimeout(bgmTimer); bgmTimer = null; }
+  bgmAudio.pause();
 }
 
 function toggleMusic() {

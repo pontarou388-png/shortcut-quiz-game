@@ -279,28 +279,42 @@ kbd {
   .big-btn { font-size: 1.5rem; padding: 16px 56px; }
   .big-btn.small { font-size: 1.2rem; padding: 12px 40px; }
 
+  .quiz-header { margin-bottom: 10px; }
   .quiz-info { font-size: 1.15rem; }
   #score { font-size: 1.5rem; }
-  .progress-bar { height: 14px; }
+  .progress-bar { height: 12px; }
 
   .quiz-body { flex-direction: column; align-items: stretch; }
-  .question-card { padding: 22px; border-radius: 20px; }
-  .category-badge { font-size: 0.95rem; }
-  .question-text { font-size: 1.35rem; margin-bottom: 18px; }
-  .choice-btn { font-size: 1.15rem; padding: 14px 16px; min-height: 56px; }
+  .question-card { padding: 16px; border-radius: 20px; }
+  .category-badge { font-size: 0.9rem; margin-bottom: 10px; }
+  .question-text { font-size: 1.25rem; margin-bottom: 14px; }
+  .choices { gap: 10px; }
+  .choice-btn { font-size: 1.1rem; padding: 10px 14px; min-height: 48px; }
   .choice-btn .num { width: 30px; margin-right: 10px; }
-  #feedback-text { font-size: 1.3rem; }
+  .feedback { margin-top: 14px; }
+  #feedback-text { font-size: 1.2rem; }
+  .big-btn.small { font-size: 1.1rem; padding: 10px 34px; }
 
+  /* キャラクターは画面左下に固定表示（スクロールしても全身が見える） */
   .char-stage {
-    width: 100%;
+    position: fixed;
+    left: 10px;
+    bottom: 10px;
+    width: auto;
     flex-direction: row;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: flex-end;
-    gap: 20px;
+    gap: 10px;
+    z-index: 5;
+    pointer-events: none;
   }
-  .char-girl { height: 190px; }
-  .char-penguin { height: 125px; }
-  .bubble { font-size: 1.05rem; padding: 6px 14px; }
+  .char-girl { height: 110px; }
+  .char-penguin { height: 75px; }
+  .bubble { font-size: 0.85rem; padding: 4px 10px; border-width: 2px; margin-bottom: 8px; }
+  .bubble::after { border-width: 8px; bottom: -8px; }
+
+  /* 固定キャラと重ならないように下に余白 */
+  #quiz-screen { padding-bottom: 150px; }
 
   .start-chars { min-height: 190px; gap: 24px; }
   .start-chars .char-girl { height: 185px; }
