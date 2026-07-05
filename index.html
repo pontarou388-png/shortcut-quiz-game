@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ショートカットキー クイズ</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+
+    <!-- スタート画面 -->
+    <section id="start-screen" class="screen active">
+      <h1 class="title">⌨️ ショートカットキー クイズ</h1>
+      <p class="subtitle">Windowsのショートカットキーを楽しく覚えよう！</p>
+      <div class="start-chars">
+        <img src="assets/girl_happy.png" alt="女の子" class="char char-girl float">
+        <img src="assets/penguin.png" alt="ペンギン" class="char char-penguin float delay">
+      </div>
+      <ul class="rules">
+        <li>🎲 毎回ランダムに <strong>20問</strong> 出題</li>
+        <li>💯 1問5点の <strong>100点満点</strong></li>
+        <li>⌨️ キーボードの <kbd>1</kbd>〜<kbd>4</kbd> でも答えられるよ</li>
+      </ul>
+      <button id="start-btn" class="big-btn">スタート！</button>
+    </section>
+
+    <!-- クイズ画面 -->
+    <section id="quiz-screen" class="screen">
+      <header class="quiz-header">
+        <div class="quiz-info">
+          <span id="q-number">第1問 / 20</span>
+          <span id="score-label">スコア: <strong id="score">0</strong> 点</span>
+        </div>
+        <div class="progress-bar"><div id="progress" class="progress-fill"></div></div>
+      </header>
+
+      <div class="quiz-body">
+        <div class="question-card">
+          <p id="category" class="category-badge"></p>
+          <p id="question" class="question-text"></p>
+          <div id="choices" class="choices"></div>
+          <div id="feedback" class="feedback hidden">
+            <p id="feedback-text"></p>
+            <button id="next-btn" class="big-btn small">つぎへ ▶</button>
+          </div>
+        </div>
+
+        <div class="char-stage">
+          <div id="penguin-box" class="penguin-box hidden">
+            <div class="bubble">やったね！</div>
+            <img src="assets/penguin.png" alt="ペンギン" class="char char-penguin">
+          </div>
+          <div id="girl-box" class="girl-box">
+            <div id="girl-bubble" class="bubble hidden"></div>
+            <img id="girl-img" src="assets/girl_happy.png" alt="女の子" class="char char-girl">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 結果画面 -->
+    <section id="result-screen" class="screen">
+      <h1 class="title">けっか はっぴょう！</h1>
+      <p class="final-score"><span id="final-score">0</span><span class="unit"> / 100点</span></p>
+      <p id="rank-message" class="rank-message"></p>
+      <div id="result-chars" class="start-chars"></div>
+      <button id="retry-btn" class="big-btn">もういちど あそぶ</button>
+    </section>
+
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
