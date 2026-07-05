@@ -111,17 +111,22 @@ function shuffle(array) {
 }
 
 /* 誤答の選択肢を、正解とまぎらわしくならないように選ぶ */
+function normalizeChoice(value) {
+  return value.replace(/（.*?）/g, "").trim(); // 「F12（ブラウザ）」と「F12」を同一視
+}
+
 function pickDistractors(correct, field) {
   const pool = shuffle(
     SHORTCUTS.filter(
       (s) => s !== correct && s[field] !== correct[field]
     )
   );
-  const seen = new Set([correct[field]]);
+  const seen = new Set([normalizeChoice(correct[field])]);
   const result = [];
   for (const s of pool) {
-    if (!seen.has(s[field])) {
-      seen.add(s[field]);
+    const key = normalizeChoice(s[field]);
+    if (!seen.has(key)) {
+      seen.add(key);
       result.push(s[field]);
       if (result.length === CHOICE_COUNT - 1) break;
     }
@@ -238,12 +243,14 @@ function answer(index) {
     feedbackText.textContent = "⭕ せいかい！ +5点";
     feedbackText.className = "good";
     reactCorrect();
+    sfxCorrect();
   } else {
     streak = 0;
     buttons[index].classList.add("wrong");
     feedbackText.textContent = `❌ ざんねん… こたえは「${q.choices[q.answer]}」`;
     feedbackText.className = "bad";
     reactWrong();
+    sfxWrong();
   }
 
   $("progress").style.width = `${((currentIndex + 1) / QUESTIONS_PER_GAME) * 100}%`;
@@ -295,8 +302,105 @@ function showResult() {
   }
 }
 
+/* =========================================================
+ * 音楽（Web Audio APIで生成 — 音声ファイル不要）
+ * ========================================================= */
+let audioCtx = null;
+let musicOn = true;
+let bgmTimer = null;
+let bgmGain = null;
+
+const NOTE = { C4:261.63, D4:293.66, E4:329.63, F4:349.23, G4:392.0, A4:440.0, B4:493.88,
+               C5:523.25, D5:587.33, E5:659.25, F5:698.46, G5:783.99, A5:880.0, C6:1046.5, R:0 };
+
+/* たのしい8小節ループ（メロディ + ベース） */
+const MELODY = [
+  "C5","E5","G5","E5","A5","G5","E5","C5",
+  "D5","F5","A5","F5","G5","E5","C5","R",
+  "C5","E5","G5","E5","A5","G5","E5","G5",
+  "A5","G5","F5","D5","C5","C5","R","R",
+];
+const BASS = [
+  "C4","R","G4","R","F4","R","G4","R",
+  "D4","R","A4","R","C4","R","G4","R",
+  "C4","R","G4","R","F4","R","E4","R",
+  "F4","R","G4","R","C4","R","C4","R",
+];
+const BEAT = 0.22; // 1音の長さ（秒）
+
+function ensureAudio() {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    bgmGain = audioCtx.createGain();
+    bgmGain.gain.value = 0.12;
+    bgmGain.connect(audioCtx.destination);
+  }
+  if (audioCtx.state === "suspended") audioCtx.resume();
+}
+
+function playNote(freq, time, dur, type, gainNode, volume) {
+  if (!freq) return;
+  const osc = audioCtx.createOscillator();
+  const g = audioCtx.createGain();
+  osc.type = type;
+  osc.frequency.value = freq;
+  g.gain.setValueAtTime(volume, time);
+  g.gain.exponentialRampToValueAtTime(0.001, time + dur);
+  osc.connect(g);
+  g.connect(gainNode);
+  osc.start(time);
+  osc.stop(time + dur);
+}
+
+function scheduleBgmLoop() {
+  if (!musicOn || !audioCtx) return;
+  const start = audioCtx.currentTime + 0.05;
+  MELODY.forEach((n, i) => playNote(NOTE[n], start + i * BEAT, BEAT * 0.9, "triangle", bgmGain, 1));
+  BASS.forEach((n, i) => playNote(NOTE[n], start + i * BEAT, BEAT * 1.8, "sine", bgmGain, 0.7));
+  bgmTimer = setTimeout(scheduleBgmLoop, MELODY.length * BEAT * 1000);
+}
+
+function startMusic() {
+  ensureAudio();
+  if (bgmTimer) clearTimeout(bgmTimer);
+  if (musicOn) scheduleBgmLoop();
+}
+
+function stopMusic() {
+  if (bgmTimer) { clearTimeout(bgmTimer); bgmTimer = null; }
+}
+
+function toggleMusic() {
+  musicOn = !musicOn;
+  $("music-btn").textContent = musicOn ? "🎵" : "🔇";
+  if (musicOn) startMusic();
+  else stopMusic();
+}
+
+/* 効果音 */
+function sfxCorrect() {
+  if (!audioCtx || !musicOn) return;
+  const t = audioCtx.currentTime;
+  const g = audioCtx.createGain();
+  g.gain.value = 0.25;
+  g.connect(audioCtx.destination);
+  [NOTE.C5, NOTE.E5, NOTE.G5, NOTE.C6].forEach((f, i) =>
+    playNote(f, t + i * 0.09, 0.25, "triangle", g, 1));
+}
+
+function sfxWrong() {
+  if (!audioCtx || !musicOn) return;
+  const t = audioCtx.currentTime;
+  const g = audioCtx.createGain();
+  g.gain.value = 0.2;
+  g.connect(audioCtx.destination);
+  playNote(NOTE.E4, t, 0.3, "sawtooth", g, 1);
+  playNote(NOTE.C4, t + 0.18, 0.45, "sawtooth", g, 1);
+}
+
 /* ===== イベント ===== */
-$("start-btn").addEventListener("click", startGame);
+$("music-btn").addEventListener("click", () => { ensureAudio(); toggleMusic(); });
+$("start-btn").addEventListener("click", () => { startMusic(); startGame(); });
 $("retry-btn").addEventListener("click", startGame);
 $("next-btn").addEventListener("click", nextQuestion);
 
