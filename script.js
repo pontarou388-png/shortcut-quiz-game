@@ -313,26 +313,30 @@ let bgmGain = null;
 const NOTE = { C4:261.63, D4:293.66, E4:329.63, F4:349.23, G4:392.0, A4:440.0, B4:493.88,
                C5:523.25, D5:587.33, E5:659.25, F5:698.46, G5:783.99, A5:880.0, C6:1046.5, R:0 };
 
-/* たのしい8小節ループ（メロディ + ベース） */
+/* ゆったりオルゴール風「きらきら星」ループ（メロディ + ベース） */
 const MELODY = [
-  "C5","E5","G5","E5","A5","G5","E5","C5",
-  "D5","F5","A5","F5","G5","E5","C5","R",
-  "C5","E5","G5","E5","A5","G5","E5","G5",
-  "A5","G5","F5","D5","C5","C5","R","R",
+  "C5","C5","G5","G5","A5","A5","G5","R",
+  "F5","F5","E5","E5","D5","D5","C5","R",
+  "G5","G5","F5","F5","E5","E5","D5","R",
+  "G5","G5","F5","F5","E5","E5","D5","R",
+  "C5","C5","G5","G5","A5","A5","G5","R",
+  "F5","F5","E5","E5","D5","D5","C5","R",
 ];
 const BASS = [
-  "C4","R","G4","R","F4","R","G4","R",
-  "D4","R","A4","R","C4","R","G4","R",
-  "C4","R","G4","R","F4","R","E4","R",
+  "C4","R","E4","R","F4","R","C4","R",
+  "F4","R","C4","R","G4","R","C4","R",
+  "C4","R","D4","R","C4","R","G4","R",
+  "C4","R","D4","R","C4","R","G4","R",
+  "C4","R","E4","R","F4","R","C4","R",
   "F4","R","G4","R","C4","R","C4","R",
 ];
-const BEAT = 0.22; // 1音の長さ（秒）
+const BEAT = 0.4; // 1音の長さ（秒）— ゆっくりめ
 
 function ensureAudio() {
   if (!audioCtx) {
     audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     bgmGain = audioCtx.createGain();
-    bgmGain.gain.value = 0.12;
+    bgmGain.gain.value = 0.1;
     bgmGain.connect(audioCtx.destination);
   }
   if (audioCtx.state === "suspended") audioCtx.resume();
@@ -355,8 +359,9 @@ function playNote(freq, time, dur, type, gainNode, volume) {
 function scheduleBgmLoop() {
   if (!musicOn || !audioCtx) return;
   const start = audioCtx.currentTime + 0.05;
-  MELODY.forEach((n, i) => playNote(NOTE[n], start + i * BEAT, BEAT * 0.9, "triangle", bgmGain, 1));
-  BASS.forEach((n, i) => playNote(NOTE[n], start + i * BEAT, BEAT * 1.8, "sine", bgmGain, 0.7));
+  // オルゴール風：やわらかい正弦波 + 長めの余韻
+  MELODY.forEach((n, i) => playNote(NOTE[n], start + i * BEAT, BEAT * 2.2, "sine", bgmGain, 1));
+  BASS.forEach((n, i) => playNote(NOTE[n], start + i * BEAT, BEAT * 2.6, "sine", bgmGain, 0.45));
   bgmTimer = setTimeout(scheduleBgmLoop, MELODY.length * BEAT * 1000);
 }
 
