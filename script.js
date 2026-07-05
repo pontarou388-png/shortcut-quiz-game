@@ -360,8 +360,8 @@ function scheduleBgmLoop() {
   if (!musicOn || !audioCtx) return;
   const start = audioCtx.currentTime + 0.05;
   // オルゴール風：やわらかい正弦波 + 長めの余韻
-  MELODY.forEach((n, i) => playNote(NOTE[n], start + i * BEAT, BEAT * 2.2, "sine", bgmGain, 1));
-  BASS.forEach((n, i) => playNote(NOTE[n], start + i * BEAT, BEAT * 2.6, "sine", bgmGain, 0.45));
+  MELODY.forEach((n, i) => playNote(NOTE[n], start + i * BEAT, BEAT * 1.3, "sine", bgmGain, 1));
+  BASS.forEach((n, i) => playNote(NOTE[n], start + i * BEAT, BEAT * 2.0, "sine", bgmGain, 0.3));
   bgmTimer = setTimeout(scheduleBgmLoop, MELODY.length * BEAT * 1000);
 }
 
