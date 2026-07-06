@@ -295,26 +295,33 @@ kbd {
   #feedback-text { font-size: 1.2rem; }
   .big-btn.small { font-size: 1.1rem; padding: 10px 34px; }
 
-  /* キャラクターは画面左下に固定表示（スクロールしても全身が見える） */
+  /* キャラクターは画面下の中央に固定表示（スクロールしても全身が見える） */
   .char-stage {
     position: fixed;
-    left: 10px;
+    left: 50%;
+    transform: translateX(-50%);
     bottom: 10px;
     width: auto;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: flex-end;
-    gap: 10px;
-    z-index: 5;
+    gap: 12px;
+    z-index: 1; /* 小さい画面ではカードの後ろに隠れる（ボタンを隠さない） */
     pointer-events: none;
   }
-  .char-girl { height: 110px; }
-  .char-penguin { height: 75px; }
+  .question-card { position: relative; z-index: 2; }
+  .char-girl { height: 220px; }
+  .char-penguin { height: 130px; }
   .bubble { font-size: 0.85rem; padding: 4px 10px; border-width: 2px; margin-bottom: 8px; }
   .bubble::after { border-width: 8px; bottom: -8px; }
 
+  /* 吹き出しは頭の横に表示（上に伸びてボタンと重ならないように） */
+  .girl-box { position: relative; }
+  .girl-box .bubble { position: absolute; top: 0; left: 60%; margin-bottom: 0; }
+  .girl-box .bubble::after { left: 20%; }
+
   /* 固定キャラと重ならないように下に余白 */
-  #quiz-screen { padding-bottom: 150px; }
+  #quiz-screen { padding-bottom: 280px; }
 
   .start-chars { min-height: 190px; gap: 24px; }
   .start-chars .char-girl { height: 185px; }
