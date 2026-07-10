@@ -2,76 +2,83 @@
 
 /* =========================================================
  * ショートカットキー データ
- * keys: ショートカットキー / action: はたらき / cat: カテゴリ
+ * keys: ショートカットキー / action: はたらき / cat: カテゴリ / lv: レベル
+ * lv: "★5" "★4" "★3" "★2" "★1" "入力"
+ * 初級コース = ★5 + ★4 + 入力
+ * 上級コース = すべて
  * ========================================================= */
 const SHORTCUTS = [
   // ---- 重要度 ★★★★★ ----
-  { keys: "Ctrl + C", action: "コピー", cat: "基本" },
-  { keys: "Ctrl + V", action: "貼り付け", cat: "基本" },
-  { keys: "Ctrl + X", action: "切り取り", cat: "基本" },
-  { keys: "Ctrl + Z", action: "1つ前に戻る（元に戻す）", cat: "基本" },
-  { keys: "Ctrl + マウスホイール", action: "拡大・縮小", cat: "基本" },
-  { keys: "Ctrl + クリック", action: "複数選択・選択解除", cat: "基本" },
-  { keys: "Shift + クリック", action: "範囲をまとめて選択", cat: "基本" },
-  { keys: "F2", action: "名前の変更", cat: "基本" },
-  { keys: "Esc", action: "閉じる・キャンセル", cat: "基本" },
+  { keys: "Ctrl + C", action: "コピー", cat: "重要度★★★★★", lv: "★5" },
+  { keys: "Ctrl + V", action: "貼り付け", cat: "重要度★★★★★", lv: "★5" },
+  { keys: "Ctrl + X", action: "切り取り", cat: "重要度★★★★★", lv: "★5" },
+  { keys: "Ctrl + Z", action: "1つ前に戻る", cat: "重要度★★★★★", lv: "★5" },
+  { keys: "Ctrl + S", action: "上書き保存", cat: "重要度★★★★★", lv: "★5" },
+  { keys: "Ctrl + マウスホイール", action: "拡大・縮小", cat: "重要度★★★★★", lv: "★5" },
+  { keys: "Ctrl + クリック", action: "複数選択・選択解除", cat: "重要度★★★★★", lv: "★5" },
+  { keys: "Shift + クリック", action: "該当箇所まで複数選択", cat: "重要度★★★★★", lv: "★5" },
+  { keys: "Esc", action: "閉じる・キャンセル", cat: "重要度★★★★★", lv: "★5" },
+  { keys: "Ctrl + 1", action: "書式設定", cat: "重要度★★★★★", lv: "★5" },
+  { keys: "Ctrl + F1", action: "リボンの表示・非表示", cat: "重要度★★★★★", lv: "★5" },
+  { keys: "Ctrl + 矢印", action: "端まで移動", cat: "重要度★★★★★", lv: "★5" },
+  { keys: "Ctrl + Shift + 矢印", action: "端まで選択", cat: "重要度★★★★★", lv: "★5" },
+  { keys: "Ctrl + Shift + L", action: "フィルター表示・非表示", cat: "重要度★★★★★", lv: "★5" },
+  { keys: "F2", action: "編集", cat: "重要度★★★★★", lv: "★5" },
+  { keys: "F4", action: "絶対参照・前回の操作を繰り返し", cat: "重要度★★★★★", lv: "★5" },
 
   // ---- 重要度 ★★★★ ----
-  { keys: "Delete", action: "削除", cat: "基本" },
-  { keys: "Ctrl + S", action: "上書き保存", cat: "基本" },
-  { keys: "Ctrl + A", action: "全選択", cat: "基本" },
-  { keys: "Ctrl + F", action: "検索", cat: "基本" },
-  { keys: "Ctrl + N", action: "新しいウィンドウを開く", cat: "基本" },
-  { keys: "Ctrl + Y", action: "やり直し・繰り返し", cat: "基本" },
-  { keys: "Win + V", action: "クリップボードの履歴を開く", cat: "基本" },
-  { keys: "Alt + Tab", action: "ウィンドウの切り替え", cat: "基本" },
-  { keys: "Ctrl + W", action: "ウィンドウやタブを閉じる", cat: "基本" },
+  { keys: "Ctrl + A", action: "全選択", cat: "重要度★★★★", lv: "★4" },
+  { keys: "Ctrl + F", action: "検索", cat: "重要度★★★★", lv: "★4" },
+  { keys: "Ctrl + H", action: "置換", cat: "重要度★★★★", lv: "★4" },
+  { keys: "Ctrl + Y", action: "繰り返し", cat: "重要度★★★★", lv: "★4" },
+  { keys: "Win + V", action: "クリップボード", cat: "重要度★★★★", lv: "★4" },
+  { keys: "F12", action: "名前を付けて保存", cat: "重要度★★★★", lv: "★4" },
+  { keys: "Alt + Tab", action: "ウィンドウの切り替え", cat: "重要度★★★★", lv: "★4" },
+  { keys: "Ctrl + PageUp", action: "右のシートに移動", cat: "重要度★★★★", lv: "★4" },
+  { keys: "Ctrl + PageDown", action: "左のシートに移動", cat: "重要度★★★★", lv: "★4" },
+  { keys: "Alt + Enter", action: "セル内で改行", cat: "重要度★★★★", lv: "★4" },
+  { keys: "Ctrl + T", action: "テーブル", cat: "重要度★★★★", lv: "★4" },
 
   // ---- 重要度 ★★★ ----
-  { keys: "F12", action: "名前を付けて保存", cat: "オフィスソフト" },
-  { keys: "Win + ← / →", action: "画面を左右半分に配置", cat: "ウィンドウ操作" },
-  { keys: "Win + D", action: "デスクトップを表示（全ウィンドウの非表示・再表示）", cat: "ウィンドウ操作" },
-  { keys: "Ctrl + Shift + Esc", action: "タスクマネージャーを開く", cat: "システム" },
-  { keys: "Win + Shift + S", action: "画面の一部をスクリーンショット", cat: "スクリーンショット" },
-  { keys: "PrintScreen", action: "全画面のスクリーンショット", cat: "スクリーンショット" },
-  { keys: "Win + PrintScreen", action: "スクリーンショットをファイルに保存", cat: "スクリーンショット" },
-  { keys: "Home", action: "先頭に移動", cat: "カーソル移動" },
-  { keys: "End", action: "最後に移動", cat: "カーソル移動" },
-  { keys: "Shift + Home", action: "先頭まで選択", cat: "カーソル移動" },
-  { keys: "Shift + End", action: "最後まで選択", cat: "カーソル移動" },
-  { keys: "Shift + Delete", action: "ごみ箱に入れず完全に削除", cat: "基本" },
+  { keys: "Ctrl + D", action: "上のセルをコピー、貼り付け", cat: "重要度★★★", lv: "★3" },
+  { keys: "Ctrl + ;", action: "今日の日付", cat: "重要度★★★", lv: "★3" },
+  { keys: "Ctrl + :", action: "現在の時刻", cat: "重要度★★★", lv: "★3" },
+  { keys: "Ctrl + Shift + 1", action: "桁区切り", cat: "重要度★★★", lv: "★3" },
+  { keys: "Ctrl + Alt + V", action: "形式を指定して貼り付け", cat: "重要度★★★", lv: "★3" },
+  { keys: "Ctrl + Enter", action: "一括入力", cat: "重要度★★★", lv: "★3" },
 
   // ---- 重要度 ★★ ----
-  { keys: "Win + E", action: "エクスプローラーを開く", cat: "システム" },
-  { keys: "Ctrl + P", action: "印刷", cat: "基本" },
-  { keys: "Win + ↑", action: "ウィンドウを最大化", cat: "ウィンドウ操作" },
-  { keys: "Win + ↓", action: "ウィンドウを縮小・最小化", cat: "ウィンドウ操作" },
-  { keys: "Ctrl + Win + D", action: "仮想デスクトップを作成", cat: "仮想デスクトップ" },
-  { keys: "Ctrl + Win + F4", action: "仮想デスクトップを閉じる", cat: "仮想デスクトップ" },
-  { keys: "Ctrl + Win + ← / →", action: "仮想デスクトップを移動", cat: "仮想デスクトップ" },
-  { keys: "F5", action: "更新（最新の状態にする）", cat: "基本" },
-  { keys: "Win + Tab", action: "タスクビューを開く", cat: "ウィンドウ操作" },
-  { keys: "Alt + P", action: "プレビューパネルを表示する", cat: "エクスプローラー" },
-  { keys: "Win + S", action: "検索ボックスを開く", cat: "システム" },
+  { keys: "Ctrl + スペース", action: "列選択", cat: "重要度★★", lv: "★2" },
+  { keys: "Shift + スペース", action: "行選択", cat: "重要度★★", lv: "★2" },
+  { keys: "Ctrl + +", action: "行・列・セル挿入", cat: "重要度★★", lv: "★2" },
+  { keys: "Ctrl + -", action: "行・列・セル削除", cat: "重要度★★", lv: "★2" },
+  { keys: "Alt + ↓", action: "オートフィルタ選択", cat: "重要度★★", lv: "★2" },
+  { keys: "Win + ← / →", action: "画面を半分にする", cat: "重要度★★", lv: "★2" },
+  { keys: "Shift + F11", action: "シート追加", cat: "重要度★★", lv: "★2" },
+  { keys: "Ctrl + Home", action: "A1に飛ぶ", cat: "重要度★★", lv: "★2" },
+  { keys: "Win + Shift + S", action: "一部分スクリーンショット", cat: "重要度★★", lv: "★2" },
+  { keys: "Ctrl + Tab", action: "右のタブへ移動", cat: "重要度★★", lv: "★2" },
+  { keys: "Ctrl + Shift + Tab", action: "左のタブへ移動", cat: "重要度★★", lv: "★2" },
 
   // ---- 重要度 ★ ----
-  { keys: "Win + 数字", action: "タスクバーからアプリを起動", cat: "システム" },
-  { keys: "Win + L", action: "PCをロックする", cat: "システム" },
-  { keys: "Alt + ←", action: "前のフォルダーに戻る", cat: "エクスプローラー" },
-  { keys: "Alt + →", action: "次のフォルダーに進む", cat: "エクスプローラー" },
-  { keys: "Win + I", action: "設定画面を開く", cat: "システム" },
-  { keys: "Alt + Enter", action: "プロパティを表示", cat: "エクスプローラー" },
+  { keys: "Ctrl + N", action: "新規文書作成", cat: "重要度★", lv: "★1" },
+  { keys: "Ctrl + R", action: "左のセルをコピー、貼り付け", cat: "重要度★", lv: "★1" },
+  { keys: "Ctrl + Shift + _", action: "罫線を消す", cat: "重要度★", lv: "★1" },
 
-  // ---- ブラウザ (Chrome) ----
-  { keys: "Ctrl + Tab", action: "右のタブへ移動", cat: "ブラウザ" },
-  { keys: "Ctrl + Shift + Tab", action: "左のタブへ移動", cat: "ブラウザ" },
-  { keys: "Ctrl + Shift + T", action: "直前に閉じたタブを開く", cat: "ブラウザ" },
-  { keys: "Ctrl + T", action: "新しいタブを開く", cat: "ブラウザ" },
-  { keys: "Alt + F4", action: "アプリ・ブラウザを終了する", cat: "ブラウザ" },
-  { keys: "Alt + Home", action: "ホームページを表示", cat: "ブラウザ" },
-  { keys: "Ctrl + F5", action: "スーパーリロード（キャッシュを無視して更新）", cat: "ブラウザ" },
-  { keys: "Ctrl + Shift + N", action: "シークレットモードを開く", cat: "ブラウザ" },
-  { keys: "F12（ブラウザ）", action: "検証ツール（デベロッパーツール）を開く", cat: "ブラウザ" },
+  // ---- 文字入力 ----
+  { keys: "F7", action: "全角カタカナ", cat: "文字入力", lv: "入力" },
+  { keys: "F8", action: "半角カタカナ", cat: "文字入力", lv: "入力" },
+  { keys: "F9", action: "全角ローマ字", cat: "文字入力", lv: "入力" },
+  { keys: "F10", action: "半角ローマ字", cat: "文字入力", lv: "入力" },
+  { keys: "Home", action: "行頭に移動", cat: "文字入力", lv: "入力" },
+  { keys: "Ctrl + Home（文字入力）", action: "文頭に移動", cat: "文字入力", lv: "入力" },
+  { keys: "End", action: "行末に移動", cat: "文字入力", lv: "入力" },
+  { keys: "Ctrl + End", action: "文末に移動", cat: "文字入力", lv: "入力" },
+  { keys: "Shift + Home", action: "行頭まで選択", cat: "文字入力", lv: "入力" },
+  { keys: "Shift + End", action: "行末まで選択", cat: "文字入力", lv: "入力" },
+  { keys: "Shift + 上下矢印", action: "1行上、下を選択", cat: "文字入力", lv: "入力" },
+  { keys: "Ctrl + Shift + ←", action: "単語の先頭まで", cat: "文字入力", lv: "入力" },
+  { keys: "Ctrl + Shift + →", action: "単語の後ろまで", cat: "文字入力", lv: "入力" },
 ];
 
 /* ===== 設定 ===== */
@@ -80,12 +87,16 @@ const POINTS_PER_QUESTION = 5;
 const CHOICE_COUNT = 4;
 const STREAK_FOR_PENGUIN = 3;
 
+/* 初級コース: ★5 + ★4 + 文字入力 */
+const BEGINNER_LEVELS = new Set(["★5", "★4", "入力"]);
+
 /* ===== ゲームの状態 ===== */
 let questions = [];
 let currentIndex = 0;
 let score = 0;
 let streak = 0;
 let answered = false;
+let currentCourse = "beginner";
 
 /* ===== 画面要素 ===== */
 const $ = (id) => document.getElementById(id);
@@ -110,20 +121,27 @@ function shuffle(array) {
   return a;
 }
 
-/* 誤答の選択肢を、正解とまぎらわしくならないように選ぶ */
 function normalizeChoice(value) {
-  return value.replace(/（.*?）/g, "").trim(); // 「F12（ブラウザ）」と「F12」を同一視
+  return value.replace(/（.*?）/g, "").trim();
 }
 
-function pickDistractors(correct, field) {
-  const pool = shuffle(
-    SHORTCUTS.filter(
+/* コースに応じた問題プールを返す */
+function getPool() {
+  if (currentCourse === "beginner") {
+    return SHORTCUTS.filter((s) => BEGINNER_LEVELS.has(s.lv));
+  }
+  return SHORTCUTS;
+}
+
+function pickDistractors(correct, field, pool) {
+  const candidates = shuffle(
+    pool.filter(
       (s) => s !== correct && s[field] !== correct[field]
     )
   );
   const seen = new Set([normalizeChoice(correct[field])]);
   const result = [];
-  for (const s of pool) {
+  for (const s of candidates) {
     const key = normalizeChoice(s[field]);
     if (!seen.has(key)) {
       seen.add(key);
@@ -134,15 +152,15 @@ function pickDistractors(correct, field) {
   return result;
 }
 
-/* 20問をランダム生成（出題形式もランダム） */
 function buildQuestions() {
-  return shuffle(SHORTCUTS)
+  const pool = getPool();
+  return shuffle(pool)
     .slice(0, QUESTIONS_PER_GAME)
     .map((item) => {
-      const askKeys = Math.random() < 0.5; // true: はたらき→キーを答える
+      const askKeys = Math.random() < 0.5;
       const field = askKeys ? "keys" : "action";
       const correct = item[field];
-      const choices = shuffle([correct, ...pickDistractors(item, field)]);
+      const choices = shuffle([correct, ...pickDistractors(item, field, pool)]);
       return {
         cat: item.cat,
         text: askKeys
@@ -161,7 +179,7 @@ const penguinBox = $("penguin-box");
 
 function replayAnimation(el, className) {
   el.classList.remove(className);
-  void el.offsetWidth; // reflowでアニメーションをリセット
+  void el.offsetWidth;
   el.classList.add(className);
 }
 
@@ -192,12 +210,14 @@ function resetCharacters() {
 }
 
 /* ===== クイズ進行 ===== */
-function startGame() {
+function startGame(course) {
+  currentCourse = course;
   questions = buildQuestions();
   currentIndex = 0;
   score = 0;
   streak = 0;
   $("score").textContent = "0";
+  $("course-label").textContent = currentCourse === "beginner" ? "初級コース" : "上級コース";
   resetCharacters();
   showScreen("quiz");
   showQuestion();
@@ -271,6 +291,7 @@ function nextQuestion() {
 function showResult() {
   showScreen("result");
   $("final-score").textContent = String(score);
+  $("result-course").textContent = currentCourse === "beginner" ? "初級コース" : "上級コース";
 
   const chars = $("result-chars");
   chars.innerHTML = "";
@@ -336,7 +357,7 @@ function playNote(freq, time, dur, type, gainNode, volume) {
 function startMusic() {
   ensureAudio();
   if (musicOn) {
-    bgmAudio.play().catch(() => {}); // 自動再生がブロックされても止まらないように
+    bgmAudio.play().catch(() => {});
   }
 }
 
@@ -374,8 +395,10 @@ function sfxWrong() {
 
 /* ===== イベント ===== */
 $("music-btn").addEventListener("click", () => { ensureAudio(); toggleMusic(); });
-$("start-btn").addEventListener("click", () => { startMusic(); startGame(); });
-$("retry-btn").addEventListener("click", startGame);
+$("btn-beginner").addEventListener("click", () => { startMusic(); startGame("beginner"); });
+$("btn-advanced").addEventListener("click", () => { startMusic(); startGame("advanced"); });
+$("retry-btn").addEventListener("click", () => startGame(currentCourse));
+$("back-btn").addEventListener("click", () => showScreen("start"));
 $("next-btn").addEventListener("click", nextQuestion);
 
 document.addEventListener("keydown", (e) => {

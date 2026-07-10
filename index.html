@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ショートカットキー クイズ</title>
-  <link rel="stylesheet" href="style.css?v=4">
+  <link rel="stylesheet" href="style.css?v=5">
 </head>
 <body>
   <button id="music-btn" class="music-btn" title="音楽のオン・オフ" aria-label="音楽のオン・オフ">🎵</button>
@@ -23,7 +23,11 @@
         <li>💯 1問5点の <strong>100点満点</strong></li>
         <li>⌨️ キーボードの <kbd>1</kbd>〜<kbd>4</kbd> でも答えられるよ</li>
       </ul>
-      <button id="start-btn" class="big-btn">スタート！</button>
+      <p class="course-desc">コースを選んでスタート！</p>
+      <div class="course-buttons">
+        <button id="btn-beginner" class="big-btn course-btn beginner">🌸 初級コース<span class="course-sub">★5・★4・文字入力</span></button>
+        <button id="btn-advanced" class="big-btn course-btn advanced">🔥 上級コース<span class="course-sub">すべての問題</span></button>
+      </div>
     </section>
 
     <!-- クイズ画面 -->
@@ -31,6 +35,7 @@
       <header class="quiz-header">
         <div class="quiz-info">
           <span id="q-number">第1問 / 20</span>
+          <span id="course-label" class="course-tag">初級コース</span>
           <span id="score-label">スコア: <strong id="score">0</strong> 点</span>
         </div>
         <div class="progress-bar"><div id="progress" class="progress-fill"></div></div>
@@ -63,14 +68,18 @@
     <!-- 結果画面 -->
     <section id="result-screen" class="screen">
       <h1 class="title">けっか はっぴょう！</h1>
+      <p id="result-course" class="result-course-label">初級コース</p>
       <p class="final-score"><span id="final-score">0</span><span class="unit"> / 100点</span></p>
       <p id="rank-message" class="rank-message"></p>
       <div id="result-chars" class="start-chars"></div>
-      <button id="retry-btn" class="big-btn">もういちど あそぶ</button>
+      <div class="result-buttons">
+        <button id="retry-btn" class="big-btn">もういちど あそぶ</button>
+        <button id="back-btn" class="big-btn small">コース選択にもどる</button>
+      </div>
     </section>
 
   </main>
   <audio id="bgm" src="assets/bgm.mp3" loop preload="auto"></audio>
-  <script src="script.js?v=4"></script>
+  <script src="script.js?v=5"></script>
 </body>
 </html>

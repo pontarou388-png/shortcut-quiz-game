@@ -91,11 +91,64 @@ kbd {
 .big-btn:hover { transform: translateY(3px); box-shadow: 0 5px 0 #c95a80; }
 .big-btn.small { font-size: 1.6rem; padding: 16px 60px; margin-top: 14px; }
 
+/* ===== コース選択ボタン ===== */
+.course-desc {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #e8739a;
+  margin-bottom: 20px;
+}
+
+.course-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+
+.course-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 48px;
+  font-size: 2rem;
+  border-radius: 28px;
+  min-width: 280px;
+}
+.course-btn.beginner {
+  background: linear-gradient(180deg, #ffb7cd, #e8739a);
+  box-shadow: 0 8px 0 #c95a80;
+}
+.course-btn.advanced {
+  background: linear-gradient(180deg, #ffd166, #f0a030);
+  box-shadow: 0 8px 0 #c08020;
+}
+.course-btn.advanced:hover { transform: translateY(3px); box-shadow: 0 5px 0 #c08020; }
+
+.course-sub {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: normal;
+  opacity: 0.9;
+  margin-top: 6px;
+}
+
+/* ===== クイズ画面ヘッダー ===== */
+.course-tag {
+  background: #ffe3ec;
+  color: #d05680;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 999px;
+  padding: 3px 16px;
+}
+
 /* ===== クイズ画面 ===== */
 .quiz-header { margin-bottom: 20px; }
 .quiz-info {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   font-weight: bold;
   font-size: 1.7rem;
   margin-bottom: 10px;
@@ -266,6 +319,24 @@ kbd {
 .final-score .unit { font-size: 2.2rem; color: #5a4a42; }
 .rank-message { font-size: 2.1rem; font-weight: bold; margin-bottom: 16px; line-height: 1.8; }
 
+.result-course-label {
+  display: inline-block;
+  background: #ffe3ec;
+  color: #d05680;
+  font-size: 1.4rem;
+  font-weight: bold;
+  border-radius: 999px;
+  padding: 6px 28px;
+  margin-bottom: 10px;
+}
+
+.result-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
 /* ===== スマホ対応 ===== */
 @media (max-width: 700px) {
   .app { padding: 14px; }
@@ -279,9 +350,15 @@ kbd {
   .big-btn { font-size: 1.5rem; padding: 16px 56px; }
   .big-btn.small { font-size: 1.2rem; padding: 12px 40px; }
 
+  .course-desc { font-size: 1.15rem; }
+  .course-buttons { gap: 14px; }
+  .course-btn { min-width: 0; width: 100%; max-width: 320px; padding: 18px 24px; font-size: 1.5rem; border-radius: 22px; }
+  .course-sub { font-size: 0.95rem; }
+
   .quiz-header { margin-bottom: 10px; }
-  .quiz-info { font-size: 1.15rem; }
+  .quiz-info { font-size: 1.15rem; flex-wrap: wrap; gap: 6px; }
   #score { font-size: 1.5rem; }
+  .course-tag { font-size: 0.85rem; padding: 2px 10px; }
   .progress-bar { height: 12px; }
 
   .quiz-body { flex-direction: column; align-items: stretch; }
@@ -295,7 +372,6 @@ kbd {
   #feedback-text { font-size: 1.2rem; }
   .big-btn.small { font-size: 1.1rem; padding: 10px 34px; }
 
-  /* キャラクターは画面下の中央に固定表示（スクロールしても全身が見える） */
   .char-stage {
     position: fixed;
     left: 50%;
@@ -306,7 +382,7 @@ kbd {
     justify-content: center;
     align-items: flex-end;
     gap: 12px;
-    z-index: 1; /* 小さい画面ではカードの後ろに隠れる（ボタンを隠さない） */
+    z-index: 1;
     pointer-events: none;
   }
   .question-card { position: relative; z-index: 2; }
@@ -315,12 +391,10 @@ kbd {
   .bubble { font-size: 0.85rem; padding: 4px 10px; border-width: 2px; margin-bottom: 8px; }
   .bubble::after { border-width: 8px; bottom: -8px; }
 
-  /* 吹き出しは頭の横に表示（上に伸びてボタンと重ならないように） */
   .girl-box { position: relative; }
   .girl-box .bubble { position: absolute; top: 0; left: 60%; margin-bottom: 0; }
   .girl-box .bubble::after { left: 20%; }
 
-  /* 固定キャラと重ならないように下に余白 */
   #quiz-screen { padding-bottom: 280px; }
 
   .start-chars { min-height: 190px; gap: 24px; }
@@ -329,4 +403,5 @@ kbd {
 
   .final-score { font-size: 4rem; }
   .rank-message { font-size: 1.3rem; }
+  .result-course-label { font-size: 1.1rem; }
 }
