@@ -2,6 +2,7 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
+  zoom: 0.9; /* 全体を0.9倍に縮小（バランスは現状維持） */
   font-family: "Segoe UI", "Hiragino Maru Gothic ProN", "Yu Gothic UI", "Meiryo", sans-serif;
   background: linear-gradient(160deg, #ffeef5 0%, #fff7ec 55%, #eafaf1 100%);
   min-height: 100vh;
