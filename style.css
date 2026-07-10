@@ -404,4 +404,21 @@ kbd {
   .final-score { font-size: 4rem; }
   .rank-message { font-size: 1.3rem; }
   .result-course-label { font-size: 1.1rem; }
+  .home-button { font-size: 1.1rem; padding: 12px 28px; }
 }
+
+/* ===== ホームボタン ===== */
+.home-button {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 15px 35px;
+  background: #ffffff;
+  color: #ff4f8b;
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  transition: transform 0.2s;
+}
+.home-button:hover { transform: scale(1.08); }
